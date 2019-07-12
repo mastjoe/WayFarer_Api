@@ -3,6 +3,8 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
+import usersRouter from './routes/users';
+
 
 const app = express();
 const result = dotenv.config();
@@ -12,6 +14,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 const router = express.Router();
+
+// route group here...
+// sign up...
+app.use('/api/v1/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
