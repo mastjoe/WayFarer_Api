@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
-import usersRouter from './routes/users';
+import signupRouter from './routes/signup';
 
 
 const app = express();
@@ -17,7 +17,7 @@ const router = express.Router();
 
 // route group here...
 // sign up...
-app.use('/api/v1/users', usersRouter);
+app.use('/api/v1/signup', signupRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

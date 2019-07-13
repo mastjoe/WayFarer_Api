@@ -1,23 +1,41 @@
-import {assert} from 'chai';
-import sinon from 'sinon';
-import request from 'request';
+import chai from 'chai';
+import chatHttp from 'chai-http';
+import app from '../src/app';
 
-describe('User Sign Up', () => {
-    before(() => {
-      sinon.stub(request,'get')
-      .yields(null, null, JSON.stringify({
-          id: 1,
-          title: 'hello',
-        }));
+const {assert} = chai;
+chai.use(chatHttp);
+describe('Testing WayFarer Api:', () => {
+    // sign up test...
+    // sign up fails at incomplete parameters...
+    it('Users sign up needs email field', (done) => {
+        let user = {
+            first_name: 'simon',
+            last_name: 'great',
+            password:'password'
+        };
+        chai.request(app).post('/api/v1/signup')
+        .set('Accept','application/json')
+        .send(user)
+        .end((err, res) => {
+            assert.equal(res.status,422,'email field required');
+            done();
+        });
     });
 
-    it('get api returns an object', (done) => {
-        getApi(1).then(function(todo){
-            assert.isObject(todo);
+    it('Users can sign up', (done) => {
+        let user = {
+            first_name: 'john',
+            last_name: 'doe',
+            email: 'johndoe@gmail.com',
+            password: 'password',
+        };
+
+        chai.request(app).post('/api/v1/signup')
+        .set('Accept', 'application/json')
+        .send(user)
+        .end((err, res) => {
+            assert.equal(res.status,201,'user profile not created!');
             done();
-        })
-        .catch(function(e){
-            done(e);
         });
     });
 });
