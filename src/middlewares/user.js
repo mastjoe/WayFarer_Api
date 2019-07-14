@@ -3,7 +3,7 @@ import Error from '../helpers/errorHandlers';
 
 export default class UserMiddleware {
     // use after token validation...
-    static check(req, res, next) {
+    static adminCheck(req, res, next) {
         let isAdmin = req.is_admin;
         if (req.is_admin) {
             return next();
