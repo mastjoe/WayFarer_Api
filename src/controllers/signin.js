@@ -1,4 +1,4 @@
-import User from '../models/users';
+import User from '../models/user';
 import Joi from '@hapi/joi';
 import Error from '../helpers/errorHandlers';
 import jwt from 'jsonwebtoken';
@@ -19,7 +19,7 @@ export default class SignupController {
         } else {
           User.userExist(req, res)
           .then((r) => {
-            let token = jwt.sign({user:r.rows[0]}, process.env.SECRET_KEY, { expiresIn: '1h' });
+            let token = jwt.sign({user:r.rows[0]}, process.env.SECRET_KEY, { expiresIn: '2h' });
             let id = r.rows[0].id;
             let isAdmin = r.rows[0].is_admin;
             let output = {
