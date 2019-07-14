@@ -9,7 +9,7 @@ var _joi = _interopRequireDefault(require("@hapi/joi"));
 
 var _errorHandlers = _interopRequireDefault(require("../helpers/errorHandlers"));
 
-var _users = _interopRequireDefault(require("../models/users"));
+var _user = _interopRequireDefault(require("../models/user"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -43,7 +43,7 @@ function () {
           _errorHandlers["default"].serverError(req, res, err.message, 422);
         } else {
           // check if email exist previously...
-          _users["default"].emailExist(req, res).then(function (_ref) {
+          _user["default"].emailExist(req, res).then(function (_ref) {
             var rowCount = _ref.rowCount;
 
             if (rowCount > 0) {
@@ -51,7 +51,7 @@ function () {
               _errorHandlers["default"].serverError(req, res, 'email is taken already', 422);
             } else {
               // email is available...
-              _users["default"].createUser(req, res).then(function (r) {
+              _user["default"].createUser(req, res).then(function (r) {
                 res.status(201).json({
                   status: 'success',
                   data: r.rows[0]

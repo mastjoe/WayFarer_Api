@@ -5,7 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
+var _user = _interopRequireDefault(require("../models/user"));
+
+var _errorHandlers = _interopRequireDefault(require("../helpers/errorHandlers"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -15,47 +17,46 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Auth =
+var UserMiddleware =
 /*#__PURE__*/
 function () {
-  function Auth() {
-    _classCallCheck(this, Auth);
+  function UserMiddleware() {
+    _classCallCheck(this, UserMiddleware);
   }
 
-  _createClass(Auth, null, [{
-    key: "verifyToken",
-    value: function verifyToken(req, res, next) {
-      var bearerHeader = req.headers['x-access-token'] || req.headers.authorization;
+  _createClass(UserMiddleware, null, [{
+    key: "adminCheck",
+    // use after token validation...
+    value: function adminCheck(req, res, next) {
+      var isAdmin = req.is_admin;
 
-      if (typeof bearerHeader !== 'undefined') {
-        var bearerToken = bearerHeader.split(' ')[1];
-        req.token = bearerToken;
-        return Auth.validateToken(req, res, next);
+      if (req.is_admin) {
+        return next();
       } else {
         res.status(403).json({
           status: 'error',
-          error: 'unauthorized operation'
+          error: 'Unauthorized admin'
         });
       }
     }
   }, {
-    key: "validateToken",
-    value: function validateToken(req, res, next) {
-      _jsonwebtoken["default"].verify(req.token, process.env.SECRET_KEY, function (err, decoded) {
-        if (err) {
-          res.status(403).json({
-            status: 'error',
-            error: 'Unauthorized token'
-          });
-        } else {
-          req.is_admin = decoded.user.is_admin;
+    key: "userExist",
+    value: function userExist(req, res, next) {
+      var id = req.params.id;
+
+      _user["default"].userIdExist(id).then(function (r) {
+        if (r.rowCount > 0) {
           return next();
+        } else {
+          _errorHandlers["default"].notFoundError(req, res);
         }
+      })["catch"](function (e) {
+        return _errorHandlers["default"].serverError(req, res);
       });
     }
   }]);
 
-  return Auth;
+  return UserMiddleware;
 }();
 
-exports["default"] = Auth;
+exports["default"] = UserMiddleware;

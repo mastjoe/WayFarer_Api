@@ -10,6 +10,10 @@ var _dotenv = _interopRequireDefault(require("dotenv"));
 
 var _auth = _interopRequireDefault(require("./middlewares/auth"));
 
+var _user = _interopRequireDefault(require("./middlewares/user"));
+
+var _user2 = _interopRequireDefault(require("./routes/user"));
+
 var _signup = _interopRequireDefault(require("./routes/signup"));
 
 var _signin = _interopRequireDefault(require("./routes/signin"));
@@ -36,8 +40,9 @@ var router = _express["default"].Router(); // route group here...
 
 app.use('/api/v1/signup', _signup["default"]);
 app.use('/api/v1/signin', _signin["default"]);
-app.use('/api/v1/trips', _trips["default"]);
-app.use('/api/v1/bus', _auth["default"].pullToken, _bus["default"]); // catch 404 and forward to error handler
+app.use('/api/v1/trips', _auth["default"].verifyToken, _trips["default"]);
+app.use('/api/v1/bus', _auth["default"].verifyToken, _user["default"].adminCheck, _bus["default"]);
+app.use('/api/v1/users', _user2["default"]); // catch 404 and forward to error handler
 
 app.use(function (req, res, next) {
   var error = new Error('Not found');
