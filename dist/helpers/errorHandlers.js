@@ -8,5 +8,19 @@ module.exports = {
       status: 'error',
       error: msg
     });
+  },
+  notFoundError: function notFoundError(req, res) {
+    var msg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'resource not found';
+    res.status(404).json({
+      status: 'error',
+      error: msg
+    });
+  },
+  validationError: function validationError(req, res) {
+    var msg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'a field is required or not right';
+    res.status(422).json({
+      status: 'error',
+      error: msg
+    });
   }
 };

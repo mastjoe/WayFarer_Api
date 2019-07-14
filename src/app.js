@@ -25,7 +25,7 @@ const router = express.Router();
 // sign up...
 app.use('/api/v1/signup', signupRouter);
 app.use('/api/v1/signin', signinRouter);
-app.use('/api/v1/trips', tripRouter);
+app.use('/api/v1/trips', Auth.verifyToken, tripRouter);
 app.use('/api/v1/bus', Auth.verifyToken, UserMiddleware.adminCheck, busRouter);
 app.use('/api/v1/users',userRouter);
 

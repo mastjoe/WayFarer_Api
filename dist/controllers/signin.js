@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _users = _interopRequireDefault(require("../models/users"));
+var _user = _interopRequireDefault(require("../models/user"));
 
 var _joi = _interopRequireDefault(require("@hapi/joi"));
 
@@ -44,7 +44,7 @@ function () {
             error: err.message
           });
         } else {
-          _users["default"].userExist(req, res).then(function (r) {
+          _user["default"].userExist(req, res).then(function (r) {
             var token = _jsonwebtoken["default"].sign({
               user: r.rows[0]
             }, process.env.SECRET_KEY, {
@@ -62,7 +62,7 @@ function () {
               }
             };
 
-            _users["default"].updateLastLogin(id);
+            _user["default"].updateLastLogin(id);
 
             res.status(200).json(output);
           })["catch"](function (e) {
