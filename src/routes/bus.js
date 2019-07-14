@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.get('/',BusController.getAllBus);
 router.get('/:id', BusMiddleware.busExist, BusController.findBus);
-router.post('/add', BusController.addBus);
-router.delete('/delete/:id', BusMiddleware.busExist, BusController.deleteBus)
+router.post('/', BusController.addBus);
+router.delete('/:id', BusMiddleware.busExist, BusController.deleteBus)
 module.exports = router;

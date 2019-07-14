@@ -60,6 +60,15 @@ function () {
         }
       });
     }
+  }, {
+    key: "findTrip",
+    value: function findTrip(req, res) {
+      _trip["default"].find(req.params.id).then(function (r) {
+        return _successHandler["default"].successReport(req, res, r.rows[0]);
+      })["catch"](function (e) {
+        return _errorHandlers["default"].serverError(req, res);
+      });
+    }
   }]);
 
   return TripController;

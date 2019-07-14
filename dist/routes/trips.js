@@ -15,5 +15,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var router = _express["default"].Router();
 
 router.get('/', _trip["default"].allTrips);
-router.post('/create', _trip2["default"].tripBusExist, _user["default"].adminCheck, _trip["default"].createTrip);
+router.get('/:id', _trip2["default"].tripExist, _trip["default"].findTrip);
+router.post('/', _trip2["default"].tripBusExist, _user["default"].adminCheck, _trip["default"].createTrip);
 module.exports = router;

@@ -12,6 +12,6 @@ var router = _express["default"].Router();
 
 router.get('/', _bus["default"].getAllBus);
 router.get('/:id', _bus2["default"].busExist, _bus["default"].findBus);
-router.post('/add', _bus["default"].addBus);
-router["delete"]('/delete/:id', _bus2["default"].busExist, _bus["default"].deleteBus);
+router.post('/', _bus["default"].addBus);
+router["delete"]('/:id', _bus2["default"].busExist, _bus["default"].deleteBus);
 module.exports = router;

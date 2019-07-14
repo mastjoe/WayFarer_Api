@@ -38,8 +38,8 @@ var router = _express["default"].Router(); // route group here...
 // sign up...
 
 
-app.use('/api/v1/signup', _signup["default"]);
-app.use('/api/v1/signin', _signin["default"]);
+app.use('/api/v1/auth/signup', _signup["default"]);
+app.use('/api/v1/auth/signin', _signin["default"]);
 app.use('/api/v1/trips', _auth["default"].verifyToken, _trips["default"]);
 app.use('/api/v1/bus', _auth["default"].verifyToken, _user["default"].adminCheck, _bus["default"]);
 app.use('/api/v1/users', _user2["default"]); // catch 404 and forward to error handler

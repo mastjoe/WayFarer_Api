@@ -39,6 +39,19 @@ function () {
         return _errorHandlers["default"].serverError(req, res);
       });
     }
+  }, {
+    key: "tripExist",
+    value: function tripExist(req, res, next) {
+      _trip["default"].find(req.params.id).then(function (r) {
+        if (r.rowCount > 0) {
+          return next();
+        } else {
+          _errorHandlers["default"].notFoundError(req, res, "Trip with id ".concat(req.params.id, " not found"));
+        }
+      })["catch"](function (e) {
+        return _errorHandlers["default"].serverError(req, res);
+      });
+    }
   }]);
 
   return TripMiddleware;
