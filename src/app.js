@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
 import signupRouter from './routes/signup';
-
+import signinRouter from './routes/signin';
 
 const app = express();
 const result = dotenv.config();
@@ -18,6 +18,7 @@ const router = express.Router();
 // route group here...
 // sign up...
 app.use('/api/v1/signup', signupRouter);
+app.use('/api/v1/signin',signinRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
