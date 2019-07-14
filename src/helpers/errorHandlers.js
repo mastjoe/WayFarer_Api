@@ -6,10 +6,17 @@ module.exports  = {
         });
     },
 
-    notFoundError(req, res) {
+    notFoundError(req, res, msg = 'resource not found') {
         res.status(404).json({
             status: 'error',
-            error: 'resource not found'
+            error: msg
+        });
+    },
+
+    validationError(req, res,msg='a field is required or not right') {
+        res.status(422).json({
+            status: 'error',
+            error: msg
         });
     }
 }

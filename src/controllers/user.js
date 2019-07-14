@@ -23,7 +23,9 @@ export default class UsersController {
         .then(r => {
             res.status(200).json({
                 status: 'success',
-                message: 'user successfully assigned admin'
+                data: {
+                    message: 'user successfully assigned admin'
+                }
             });
         })
         .catch(e => Error.serverError(req, res));

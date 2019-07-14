@@ -26,7 +26,7 @@ const router = express.Router();
 app.use('/api/v1/signup', signupRouter);
 app.use('/api/v1/signin', signinRouter);
 app.use('/api/v1/trips', tripRouter);
-app.use('/api/v1/bus', Auth.verifyToken, UserMiddleware.check, busRouter);
+app.use('/api/v1/bus', Auth.verifyToken, UserMiddleware.adminCheck, busRouter);
 app.use('/api/v1/users',userRouter);
 
 // catch 404 and forward to error handler
