@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi';
 import Error from '../helpers/errorHandlers';
-import User from '../models/users';
+import User from '../models/user';
 
 export default class SignupController {
     static index(req, res) {

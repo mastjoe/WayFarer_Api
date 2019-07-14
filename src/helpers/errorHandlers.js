@@ -5,4 +5,11 @@ module.exports  = {
             error: msg
         });
     },
+
+    notFoundError(req, res) {
+        res.status(404).json({
+            status: 'error',
+            error: 'resource not found'
+        });
+    }
 }

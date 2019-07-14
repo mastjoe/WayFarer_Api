@@ -15,46 +15,23 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Auth =
+var BusController =
 /*#__PURE__*/
 function () {
-  function Auth() {
-    _classCallCheck(this, Auth);
+  function BusController() {
+    _classCallCheck(this, BusController);
   }
 
-  _createClass(Auth, null, [{
-    key: "verifyToken",
-    value: function verifyToken(req, res, next) {
-      var bearerHeader = req.headers['x-access-token'] || req.headers.authorization;
-
-      if (typeof bearerHeader !== 'undefined') {
-        var bearerToken = bearerHeader.split(' ')[1];
-        req.token = bearerToken;
-        return Auth.validateToken(req, res, next);
-      } else {
-        res.status(403).json({
-          status: 'error',
-          error: 'unauthorized operation'
-        });
-      }
-    }
-  }, {
-    key: "validateToken",
-    value: function validateToken(req, res, next) {
+  _createClass(BusController, null, [{
+    key: "addBus",
+    value: function addBus(req, res) {
       _jsonwebtoken["default"].verify(req.token, process.env.SECRET_KEY, function (err, decoded) {
-        if (error) {
-          res.status(403).json({
-            status: 'error',
-            error: 'Unauthorized token'
-          });
-        } else {
-          return next();
-        }
+        res.json(decoded);
       });
     }
   }]);
 
-  return Auth;
+  return BusController;
 }();
 
-exports["default"] = Auth;
+exports["default"] = BusController;

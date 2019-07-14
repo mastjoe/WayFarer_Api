@@ -48,7 +48,7 @@ function () {
             var token = _jsonwebtoken["default"].sign({
               user: r.rows[0]
             }, process.env.SECRET_KEY, {
-              expiresIn: '1h'
+              expiresIn: '2h'
             });
 
             var id = r.rows[0].id;
