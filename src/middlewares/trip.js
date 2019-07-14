@@ -14,4 +14,16 @@ export default class TripMiddleware {
         })
         .catch(e => Error.serverError(req, res));
     }
+
+    static tripExist(req, res, next) {
+        Trip.find(req.params.id)
+        .then(r => {
+            if (r.rowCount > 0) {
+                return next();
+            } else {
+                Error.notFoundError(req, res, `Trip with id ${req.params.id} not found`);
+            }
+        })
+        .catch(e => Error.serverError(req, res));
+    }
 }

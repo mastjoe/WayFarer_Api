@@ -7,6 +7,7 @@ import UserMiddleware from '../middlewares/user';
 const router = express.Router();
 
 router.get('/', TripController.allTrips);
-router.post('/create', TripMiddleware.tripBusExist, UserMiddleware.adminCheck, TripController.createTrip);
+router.get('/:id', TripMiddleware.tripExist, TripController.findTrip);
+router.post('/', TripMiddleware.tripBusExist, UserMiddleware.adminCheck, TripController.createTrip);
 
 module.exports = router;

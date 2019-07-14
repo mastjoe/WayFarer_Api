@@ -29,4 +29,10 @@ export default class TripController {
             }
         });
     }
+
+    static findTrip(req, res) {
+        Trip.find(req.params.id)
+        .then(r => Success.successReport(req, res, r.rows[0]))
+        .catch(e => Error.serverError(req, res));
+    }
 }
