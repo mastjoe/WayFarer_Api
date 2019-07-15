@@ -8,6 +8,10 @@ var _bodyParser = _interopRequireDefault(require("body-parser"));
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
+var _swaggerJsdoc = _interopRequireDefault(require("swagger-jsdoc"));
+
+var _swaggerUiExpress = _interopRequireDefault(require("swagger-ui-express"));
+
 var _auth = _interopRequireDefault(require("./middlewares/auth"));
 
 var _user = _interopRequireDefault(require("./middlewares/user"));
@@ -28,6 +32,31 @@ var app = (0, _express["default"])();
 
 var result = _dotenv["default"].config();
 
+var swaggerDefinition = {
+  info: {
+    title: 'REST API for my App',
+    // Title of the documentation
+    version: '1.0.0',
+    // Version of the app
+    description: 'This is the REST API for my product' // short description of the app
+
+  },
+  host: 'localhost:3000',
+  // the host or url of the app
+  basePath: '/api/v1/' // the basepath of your endpoint
+
+}; // options for the swagger docs
+
+var options = {
+  // import swaggerDefinitions
+  swaggerDefinition: swaggerDefinition,
+  // path to the API docs
+  apis: ['./docs/**/*.yaml']
+}; // initialize swagger-jsdoc
+
+var swaggerSpec = (0, _swaggerJsdoc["default"])(options); // use swagger-Ui-express for your app documentation endpoint
+
+app.use('/docs', _swaggerUiExpress["default"].serve, _swaggerUiExpress["default"].setup(swaggerSpec));
 app.use((0, _morgan["default"])('dev'));
 app.use(_bodyParser["default"].urlencoded({
   extended: false
