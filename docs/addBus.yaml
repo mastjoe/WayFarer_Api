@@ -1,0 +1,76 @@
+paths:
+  /bus:           # path of the user from your endpoint
+    post:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - Bus            # Value of the tag
+      summary: admin add bus
+
+      produces:
+      - application/json
+      parameters:         # request parameters
+      - in: formData
+        name: number_plate
+        type: integer
+        description: plate number of bus
+        required: true
+
+      - in: formData
+        name: manufacturer
+        type: string
+        description: manufacturer of bus
+        required: true
+      
+      - in: formData
+        name: model
+        type: string
+        description: bus model
+        required: true
+
+      - in: formData
+        name: year
+        type: string
+        description: year bus is added
+        required: true
+
+      - in: formData
+        name: capacity
+        type: integer
+        description: capacity of bus
+        required: true
+
+      - in: header
+        name: Authorization
+        type: string
+        description: user's token
+        required: true
+        
+      responses:          # server responses
+        201:
+          description: bus added
+        422:
+          description: unprocessed entities
+        500:
+          description: Server error
+definitions:        # Schema definition for request body
+  Add Bus:
+    type: object
+    properties:
+      status:
+        type: string
+      data:
+        type: object
+        properties:
+          id:
+            type: integer
+          number_plate:
+            type: string
+          manufacturer:
+            type: string
+          model:
+            type: string
+          year:
+            type: string
+          capacity:
+            type: integer
+          created_at:
+            type: string

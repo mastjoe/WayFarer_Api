@@ -1,0 +1,53 @@
+paths:
+  /auth/signin:           # path of the user from your endpoint
+    post:                 # endpoint request type (post request)
+      tags:               # Tag property
+        - User            # Value of the tag
+      summary: creates a new user
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+      - application/json
+      parameters:         # request parameters
+      - in: formData          # request body
+        name: email     # name of request, can be any name
+        type: string
+        description: users registered email address
+        required: true   # can also be true depending on user preference
+  
+      - in: formData
+        name: password
+        type: string
+        description: user's password
+        required: true
+
+      - in: header
+        name: Authorization
+        type: string
+        description: users token
+        required: true
+
+      responses:          # server responses
+        201:
+          description: An object with user details
+        403:
+          description: unauthorized
+        422:
+          description: An unprocessed entity or missing a required parameters
+        500:
+          description: Server error
+definitions:        # Schema definition for request body
+  SignIn:
+    type: object
+    properties:
+      status:
+        type: string
+      data:
+        type: object
+        properties:
+          user_id:
+            type: integer
+          is_admin:
+            type: boolean
+          token:
+            type: string
