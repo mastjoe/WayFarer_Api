@@ -19,8 +19,14 @@ let usersSql = `CREATE TABLE IF NOT EXISTS users (
 );`;
 
 pool.query(usersSql)
-.then(r => console.log(r))
-.catch(e => console.log(e));
+.then(r => {
+    console.log(r);
+    pool.end();
+})
+.catch(e => {
+    console.log(e);
+    pool.end();
+});
 
 let sqlBuses = `CREATE TABLE IF NOT EXISTS buses (
     id BIGSERIAL PRIMARY KEY NOT NULL,
@@ -33,8 +39,14 @@ let sqlBuses = `CREATE TABLE IF NOT EXISTS buses (
 );`;
 
 pool.query(sqlBuses)
-.then(r => console.log(r))
-.catch(e => console.log(e));
+.then(r => {
+    console.log(r);
+    pool.end();
+})
+.catch(e =>{ 
+    console.log(e);
+    pool.end();
+});
 
 let tripsSql = `CREATE TYPE status_type AS ENUM('active','cancelled');
 CREATE TABLE IF NOT EXISTS trips (
@@ -49,8 +61,14 @@ CREATE TABLE IF NOT EXISTS trips (
 );`;
 
 pool.query(tripsSql)
-.then(r => console.log(r))
-.catch(e => console.log(e));
+.then(r => {
+    console.log(r);
+    pool.end();
+})
+.catch(e => {
+    console.log(e);
+    pool.end();
+});
 
 let sqlBooking = `CREATE TABLE IF NOT EXISTS bookings (
     id INTEGER NOT NULL,
@@ -60,5 +78,11 @@ let sqlBooking = `CREATE TABLE IF NOT EXISTS bookings (
     PRIMARY KEY (trip_id,user_id));`;
 
 pool.query(sqlBooking)
-.then(r => console.log(r))
-.catch(e => console.log(e));;
+.then(r => {
+    console.log(r);
+    pool.end();
+})
+.catch(e =>{
+     console.log(e);
+     pool.end();
+});
