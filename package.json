@@ -8,7 +8,11 @@
     "lint": "eslint",
     "build": "babel src -d dist",
     "dev": "nodemon --exec babel-node src/server.js",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "generate-lcov": "nyc report --reporter=text-lcov > lcov.info",
+    "coveralls-coverage": "coveralls < lcov.info",
+    "codeclimate-coverage": "codeclimate-test-reporter < lcov.info",
+    "coverage": "nyc npm test && npm run generate-lcov && npm run coveralls-coverage && npm run codeclimate-coverage"
   },
   "repository": {
     "type": "git",

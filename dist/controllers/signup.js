@@ -34,7 +34,8 @@ function () {
         first_name: _joi["default"].string().required(),
         last_name: _joi["default"].string().required(),
         email: _joi["default"].string().required().email(),
-        password: _joi["default"].string().required().min(5)
+        password: _joi["default"].string().required().min(5),
+        is_admin: _joi["default"].string()
       }); // validate inputs...
 
 
