@@ -9,6 +9,7 @@
     "build": "babel src -d dist",
     "dev": "nodemon --exec babel-node src/server.js",
     "start": "node dist/server.js",
+    "migrate": "node dist/db.js",
     "generate-lcov": "nyc report --reporter=text-lcov > lcov.info",
     "coveralls-coverage": "coveralls < lcov.info",
     "codeclimate-coverage": "codeclimate-test-reporter < lcov.info",
