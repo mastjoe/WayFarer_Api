@@ -15,7 +15,7 @@ describe('Testing WayFarer Api:', () => {
             last_name: 'great',
             password:'password'
         };
-        chai.request(app).post('/api/v1/signup')
+        chai.request(app).post('/api/v1/auth/signup')
         .set('Accept','application/json')
         .send(user)
         .end((err, res) => {
@@ -31,11 +31,12 @@ describe('Testing WayFarer Api:', () => {
         last_name: 'doe',
         email: `john${suffix}@gmail.com`,
         password: 'password',
+        is_admin: true,
     };
 
     it('Users can sign up', (done) => {
         
-        chai.request(app).post('/api/v1/signup')
+        chai.request(app).post('/api/v1/auth/signup')
         .set('Accept', 'application/json')
         .send(testUser)
         .end((err, res) => {
@@ -50,7 +51,7 @@ describe('Testing WayFarer Api:', () => {
         let loginData = {
             password:testUser.password
         };
-        chai.request(app).post('/api/v1/signin')
+        chai.request(app).post('/api/v1/auth/signin')
         .set('Accept','application/json')
         .send(loginData)
         .end((err, res) => {
@@ -64,7 +65,7 @@ describe('Testing WayFarer Api:', () => {
             email: testUser.email,
             password: testUser.password
         }
-        chai.request(app).post('/api/v1/signin')
+        chai.request(app).post('/api/v1/auth/signin')
         .set('Accept','application/json')
         .send(loginData)
         .end((err, res) => {
@@ -78,7 +79,7 @@ describe('Testing WayFarer Api:', () => {
             email: testUser.email,
             password: testUser.password
         }
-        chai.request(app).post('/api/v1/signin')
+        chai.request(app).post('/api/v1/auth/signin')
         .set('Accept','application/json')
         .send(loginData)
         .end((err, res) => {
@@ -92,7 +93,7 @@ describe('Testing WayFarer Api:', () => {
             email: testUser.email,
             password: testUser.password
         }
-        chai.request(app).post('/api/v1/signin')
+        chai.request(app).post('/api/v1/auth/signin')
         .set('Accept','application/json')
         .send(loginData)
         .end((err, res) => {
@@ -104,5 +105,5 @@ describe('Testing WayFarer Api:', () => {
         });
     });
 
-    // 
+    //
 });

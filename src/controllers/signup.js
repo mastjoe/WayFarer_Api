@@ -10,6 +10,7 @@ export default class SignupController {
           last_name: Joi.string().required(),
           email: Joi.string().required().email(),
           password: Joi.string().required().min(5),
+          is_admin: Joi.string()
         });
   
         // validate inputs...

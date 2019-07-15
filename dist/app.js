@@ -32,31 +32,6 @@ var app = (0, _express["default"])();
 
 var result = _dotenv["default"].config();
 
-var swaggerDefinition = {
-  info: {
-    title: 'REST API for my App',
-    // Title of the documentation
-    version: '1.0.0',
-    // Version of the app
-    description: 'This is the REST API for my product' // short description of the app
-
-  },
-  host: 'localhost:3000',
-  // the host or url of the app
-  basePath: '/api/v1/' // the basepath of your endpoint
-
-}; // options for the swagger docs
-
-var options = {
-  // import swaggerDefinitions
-  swaggerDefinition: swaggerDefinition,
-  // path to the API docs
-  apis: ['./docs/**/*.yaml']
-}; // initialize swagger-jsdoc
-
-var swaggerSpec = (0, _swaggerJsdoc["default"])(options); // use swagger-Ui-express for your app documentation endpoint
-
-app.use('/docs', _swaggerUiExpress["default"].serve, _swaggerUiExpress["default"].setup(swaggerSpec));
 app.use((0, _morgan["default"])('dev'));
 app.use(_bodyParser["default"].urlencoded({
   extended: false
@@ -71,7 +46,32 @@ app.use('/api/v1/auth/signup', _signup["default"]);
 app.use('/api/v1/auth/signin', _signin["default"]);
 app.use('/api/v1/trips', _auth["default"].verifyToken, _trips["default"]);
 app.use('/api/v1/bus', _auth["default"].verifyToken, _user["default"].adminCheck, _bus["default"]);
-app.use('/api/v1/users', _user2["default"]); // catch 404 and forward to error handler
+app.use('/api/v1/users', _user2["default"]);
+var swaggerDefinition = {
+  info: {
+    title: 'REST API for WayFarer App',
+    // Title of the documentation
+    version: '1.0.0',
+    // Version of the app
+    description: 'This is the REST API for my product' // short description of the app
+
+  },
+  host: 'localhost:3000',
+  // the host or url of the app
+  basePath: '/api/v1' // the basepath of your endpoint
+
+}; // options for the swagger docs
+
+var options = {
+  // import swaggerDefinitions
+  swaggerDefinition: swaggerDefinition,
+  // path to the API docs
+  apis: ['./docs/**/*.yaml']
+}; // initialize swagger-jsdoc
+
+var swaggerSpec = (0, _swaggerJsdoc["default"])(options); // use swagger-Ui-express for your app documentation endpoint
+
+app.use('/docs', _swaggerUiExpress["default"].serve, _swaggerUiExpress["default"].setup(swaggerSpec)); // catch 404 and forward to error handler
 
 app.use(function (req, res, next) {
   var error = new Error('Not found');

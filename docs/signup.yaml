@@ -32,6 +32,12 @@ paths:
         type: string
         description: user's password
         required: true
+
+      - in: formData
+        name: is_admin
+        type: string
+        description: user's password
+        required: false
         
       responses:          # server responses
         201:
