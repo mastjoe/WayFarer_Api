@@ -29,4 +29,14 @@ export default class Trip {
         let sql = `UPDATE ${table} SET  status='cancelled' WHERE id='${id}'`;
         return pool.query(sql);
     }
+
+    static tripOriginFilter(val) {
+        let sql = `SELECT * FROM ${table} WHERE origin='${val}'`;
+        return pool.query(sql);
+    }
+
+    static tripDestinationFilter(val) {
+        let sql = `SELECT * FROM ${table} WHERE destination='${val}'`;
+        return pool.query(sql);
+    }
 }

@@ -10,4 +10,5 @@ router.get('/:id', TripMiddleware.tripExist, TripController.findTrip);
 router.post('/', TripMiddleware.tripBusExist, UserMiddleware.adminCheck, TripController.createTrip);
 router.patch('/:id', UserMiddleware.adminCheck, TripController.cancelTrip);
 
+
 module.exports = router;

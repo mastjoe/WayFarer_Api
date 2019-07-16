@@ -54,6 +54,18 @@ function () {
       var sql = "UPDATE ".concat(table, " SET  status='cancelled' WHERE id='").concat(id, "'");
       return pool.query(sql);
     }
+  }, {
+    key: "tripOriginFilter",
+    value: function tripOriginFilter(val) {
+      var sql = "SELECT * FROM ".concat(table, " WHERE origin='").concat(val, "'");
+      return pool.query(sql);
+    }
+  }, {
+    key: "tripDestinationFilter",
+    value: function tripDestinationFilter(val) {
+      var sql = "SELECT * FROM ".concat(table, " WHERE destination='").concat(val, "'");
+      return pool.query(sql);
+    }
   }]);
 
   return Trip;
