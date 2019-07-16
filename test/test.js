@@ -45,7 +45,7 @@ describe('Testing WayFarer Api:', () => {
         });
     });
 
-    // login test...
+    // login test
     // email requirement for login...
     it('user sign in should require email', (done) =>{
         let loginData = {
