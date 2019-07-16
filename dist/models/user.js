@@ -38,8 +38,8 @@ function () {
   }, {
     key: "createUser",
     value: function createUser(req, res) {
-      var sql = "INSERT INTO ".concat(table, " (first_name, last_name, email, password, is_admin, created_at) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *");
-      var values = [req.body.first_name, req.body.last_name, req.body.email, req.body.password, req.body.is_admin, new Date()];
+      var sql = "INSERT INTO ".concat(table, " (first_name, last_name, email, password, created_at) VALUES ($1, $2, $3, $4, $5) RETURNING *");
+      var values = [req.body.first_name, req.body.last_name, req.body.email, req.body.password, new Date()];
       return pool.query(sql, values);
     }
   }, {

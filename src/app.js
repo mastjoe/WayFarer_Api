@@ -13,6 +13,7 @@ import signupRouter from './routes/signup';
 import signinRouter from './routes/signin';
 import tripRouter from './routes/trips';
 import busRouter from './routes/bus';
+import bookingRouter from './routes/booking';
 
 const app = express();
 const result = dotenv.config();
@@ -30,6 +31,7 @@ app.use('/api/v1/auth/signin', signinRouter);
 app.use('/api/v1/trips', Auth.verifyToken, tripRouter);
 app.use('/api/v1/bus', Auth.verifyToken, UserMiddleware.adminCheck, busRouter);
 app.use('/api/v1/users',userRouter);
+app.use('/api/v1/bookings', Auth.verifyToken, bookingRouter);
 
 const swaggerDefinition = {
   info: {

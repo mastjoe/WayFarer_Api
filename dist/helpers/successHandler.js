@@ -2,7 +2,7 @@
 
 module.exports = {
   successReport: function successReport(req, res, msg) {
-    res.status(200).json({
+    res.status(201).json({
       status: 'success',
       data: msg
     });

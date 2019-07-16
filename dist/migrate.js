@@ -35,7 +35,7 @@ pool.query(tripsSql).then(function (r) {
   console.log(e);
   pool.end();
 });
-var sqlBooking = "CREATE TABLE IF NOT EXISTS bookings (\n    id INTEGER NOT NULL,\n    trip_id INTEGER NOT NULL REFERENCES trips(id),\n    user_id INTEGER NOT NULL REFERENCES users(id),\n    created_on DATE,\n    PRIMARY KEY (trip_id,user_id));";
+var sqlBooking = "CREATE TABLE IF NOT EXISTS bookings (\n    booking_id BIGSERIAL NOT NULL,\n    trip_id INTEGER NOT NULL REFERENCES trips(id),\n    user_id INTEGER NOT NULL REFERENCES users(id),\n    seat_number INTEGER NOT NULL,\n    created_on DATE,\n    PRIMARY KEY (booking_id, trip_id,user_id));";
 pool.query(sqlBooking).then(function (r) {
   console.log(r);
   pool.end();
