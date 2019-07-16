@@ -15,6 +15,7 @@ let usersSql = `CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(200) NOT NULL,
     is_admin BOOLEAN DEFAULT false,
     last_login TIMESTAMP,
+    token VARCHAR,
     created_at TIMESTAMP
 );`;
 
