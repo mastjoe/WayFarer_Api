@@ -35,4 +35,11 @@ export default class TripController {
         .then(r => Success.successReport(req, res, r.rows[0]))
         .catch(e => Error.serverError(req, res));
     }
+
+    static cancelTrip(req, res) {
+        let tripId = req.params.id;
+        Trip.cancelTrip(tripId)
+        .then(r => Success.successMessageReport(req, res, 'Trip cancelled successfully'))
+        .catch(e => Error.serverError(req, res));
+    }
 }

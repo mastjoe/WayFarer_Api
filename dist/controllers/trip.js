@@ -69,6 +69,17 @@ function () {
         return _errorHandlers["default"].serverError(req, res);
       });
     }
+  }, {
+    key: "cancelTrip",
+    value: function cancelTrip(req, res) {
+      var tripId = req.params.id;
+
+      _trip["default"].cancelTrip(tripId).then(function (r) {
+        return _successHandler["default"].successMessageReport(req, res, 'Trip cancelled successfully');
+      })["catch"](function (e) {
+        return _errorHandlers["default"].serverError(req, res);
+      });
+    }
   }]);
 
   return TripController;

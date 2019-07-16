@@ -48,6 +48,12 @@ function () {
       var sql = "DELETE FROM ".concat(table, " WHERE id='").concat(table, "'");
       return pool.query(sql);
     }
+  }, {
+    key: "cancelTrip",
+    value: function cancelTrip(id) {
+      var sql = "UPDATE ".concat(table, " SET  status='cancelled' WHERE id='").concat(id, "'");
+      return pool.query(sql);
+    }
   }]);
 
   return Trip;
