@@ -22,7 +22,7 @@ let userSql = `INSERT INTO users
 pool.query(userSql)
 .then(r => {
     console.log('admin seeded');
-    pool.end();git
+    pool.end();
 })
 .catch(e => {
     console.log('admin not seeded'+e);

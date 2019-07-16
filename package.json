@@ -11,6 +11,7 @@
     "start": "node dist/server.js",
     "migrate": "node dist/migrate.js",
     "seeder": "node dist/seeder.js",
+    "drop": "node dist/dropper.js",
     "generate-lcov": "nyc report --reporter=text-lcov > lcov.info",
     "coveralls-coverage": "coveralls < lcov.info",
     "codeclimate-coverage": "codeclimate-test-reporter < lcov.info",
