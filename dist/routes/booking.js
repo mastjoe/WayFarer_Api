@@ -12,5 +12,5 @@ var router = _express["default"].Router();
 
 router.get('/', _booking["default"].findAllBookings);
 router.post('/', _booking["default"].book);
-router["delete"]('/:id', _booking["default"].deleteBooking);
+router["delete"]('/:id', _bookings["default"].bookingOwner, _booking["default"].deleteBooking);
 module.exports = router;

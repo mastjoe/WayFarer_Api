@@ -29,8 +29,14 @@ export default class Bookings {
 
     static delete(req, res) {
         let bookingId = req.params.id;
-        let {id} = jwt.verify(req.token,process.env.SECRET_KEY);
-        let sql = `DELETE FROM ${table} WHERE booking_id='${bookingId}' AND user_id='${id}'`;
+        let {user} = jwt.verify(req.token,process.env.SECRET_KEY);
+        let sql = `DELETE FROM ${table} WHERE booking_id='${bookingId}' AND user_id='${user.id}'`;
         return pool.query(sql);
     }
+
+    static select(bookingId) {
+        let sql = `SELECT * FROM ${table} WHERE booking_id='${bookingId}'`;
+        return pool.query(sql);
+    }
+
 }

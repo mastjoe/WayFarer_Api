@@ -77,9 +77,9 @@ function () {
     key: "deleteBooking",
     value: function deleteBooking(req, res) {
       _booking["default"]["delete"](req, res).then(function (r) {
-        return res.send('deleted');
+        return _successHandler["default"].successMessageReport(req, res, 'booking successfully deleted');
       })["catch"](function (e) {
-        return res.send('not deleted' + e);
+        return _errorHandlers["default"].serverError(req, res);
       });
     }
   }]);

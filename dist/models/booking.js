@@ -60,9 +60,15 @@ function () {
       var bookingId = req.params.id;
 
       var _jwt$verify = _jsonwebtoken["default"].verify(req.token, process.env.SECRET_KEY),
-          id = _jwt$verify.id;
+          user = _jwt$verify.user;
 
-      var sql = "DELETE FROM ".concat(table, " WHERE booking_id='").concat(bookingId, "' AND user_id='").concat(id, "'");
+      var sql = "DELETE FROM ".concat(table, " WHERE booking_id='").concat(bookingId, "' AND user_id='").concat(user.id, "'");
+      return pool.query(sql);
+    }
+  }, {
+    key: "select",
+    value: function select(bookingId) {
+      var sql = "SELECT * FROM ".concat(table, " WHERE booking_id='").concat(bookingId, "'");
       return pool.query(sql);
     }
   }]);
