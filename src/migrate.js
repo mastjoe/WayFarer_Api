@@ -15,7 +15,6 @@ let usersSql = `CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(200) NOT NULL,
     is_admin BOOLEAN DEFAULT false,
     last_login TIMESTAMP,
-    token VARCHAR,
     created_at TIMESTAMP
 );`;
 
@@ -49,7 +48,7 @@ pool.query(sqlBuses)
     pool.end();
 });
 
-let tripsSql = `CREATE TYPE status_type AS ENUM('active','cancelled');
+let tripsSql = `CREATE TYPE status AS ENUM('active','cancelled');
 CREATE TABLE IF NOT EXISTS trips (
     id BIGSERIAL PRIMARY KEY NOT NULL,
     bus_id INTEGER NOT NULL REFERENCES buses(id),
@@ -57,7 +56,7 @@ CREATE TABLE IF NOT EXISTS trips (
     destination VARCHAR NOT NULL,
     trip_date DATE NOT NULL,
     fare FLOAT NOT NULL,
-    status status_type DEFAULT 'active',
+    s status DEFAULT 'active',
     created_on DATE
 );`;
 
