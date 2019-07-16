@@ -4,8 +4,6 @@ var _pg = require("pg");
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
-var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var pool = new _pg.Pool();
@@ -19,14 +17,7 @@ var user = {
   is_admin: true,
   password: 'password'
 };
-
-var token = _jsonwebtoken["default"].sign({
-  user: user
-}, process.env.SECRET_KEY, {
-  expiresIn: '2h'
-});
-
-var userSql = "INSERT INTO users\n (first_name, last_name, email, is_admin, password, token, created_at) \n VALUES ('admin', 'admin', 'admin@email.com', 'true','password','".concat(token, "', NOW())");
+var userSql = "INSERT INTO users\n (first_name, last_name, email, is_admin, password, created_at) \n VALUES ('admin', 'admin', 'admin@email.com', 'true','password', NOW())";
 pool.query(userSql).then(function (r) {
   console.log('admin seeded');
   pool.end();
