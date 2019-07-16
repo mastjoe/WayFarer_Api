@@ -31,11 +31,35 @@ function () {
   _createClass(TripController, null, [{
     key: "allTrips",
     value: function allTrips(req, res) {
-      _trip["default"].findAll(req, res).then(function (r) {
-        return _successHandler["default"].successReport(req, res, r.rows);
-      })["catch"](function (e) {
-        return _errorHandlers["default"].serverError(req, res);
-      });
+      var queries = req.query;
+      var queryKeys = Object.keys(queries);
+      var firstKey = queryKeys[0];
+      var queryVals = Object.values(queries);
+      var firstVal = queryVals[0];
+
+      if (Object.entries(queries).length > 0) {
+        if (firstKey == 'destination') {
+          // filter by destination...
+          _trip["default"].tripDestinationFilter(firstVal).then(function (r) {
+            return _successHandler["default"].successReport(req, res, r.rows);
+          })["catch"](function (e) {
+            return _errorHandlers["default"].serverError(req, res);
+          });
+        } else if (firstKey == 'origin') {
+          // filter by origin...
+          _trip["default"].tripOriginFilter(firstVal).then(function (r) {
+            return _successHandler["default"].successReport(req, res, r.rows);
+          })["catch"](function (e) {
+            return _errorHandlers["default"].serverError(req, res);
+          });
+        }
+      } else {
+        _trip["default"].findAll(req, res).then(function (r) {
+          return _successHandler["default"].successReport(req, res, r.rows);
+        })["catch"](function (e) {
+          return _errorHandlers["default"].serverError(req, res);
+        });
+      }
     }
   }, {
     key: "createTrip",

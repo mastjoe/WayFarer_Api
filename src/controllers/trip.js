@@ -5,9 +5,30 @@ import Joi from '@hapi/joi';
 
 export default class TripController {
     static allTrips(req, res) {
-        Trip.findAll(req, res)
-        .then(r => Success.successReport(req, res, r.rows))
-        .catch(e => Error.serverError(req, res));
+        let queries = req.query;
+        let queryKeys = Object.keys(queries);
+        let firstKey = queryKeys[0];
+
+        let queryVals = Object.values(queries);
+        let firstVal = queryVals[0];
+
+        if (Object.entries(queries).length > 0) {
+            if (firstKey == 'destination') {
+                // filter by destination...
+                Trip.tripDestinationFilter(firstVal)
+                .then(r => Success.successReport(req, res, r.rows))
+                .catch(e => Error.serverError(req, res));
+            } else if(firstKey == 'origin') {
+                // filter by origin...
+                Trip.tripOriginFilter(firstVal)
+                .then(r => Success.successReport(req, res, r.rows))
+                .catch(e => Error.serverError(req, res));
+            }
+        } else{
+            Trip.findAll(req, res)
+            .then(r => Success.successReport(req, res, r.rows))
+            .catch(e => Error.serverError(req, res));
+        }
     }
 
     static createTrip(req, res) {
