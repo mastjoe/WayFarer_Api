@@ -1,4 +1,5 @@
 import {Pool} from 'pg';
+import jwt from 'jsonwebtoken';
 
 const pool = new Pool();
 const table = 'users';

@@ -31,7 +31,7 @@ describe('Testing WayFarer Api:', () => {
         last_name: 'doe',
         email: `john${suffix}@gmail.com`,
         password: 'password',
-        is_admin: 'true',
+        is_admin: 'true'
     };
 
     it('Users can sign up', (done) => {
@@ -45,7 +45,7 @@ describe('Testing WayFarer Api:', () => {
         });
     });
 
-    // login test...
+    // login test
     // email requirement for login...
     it('user sign in should require email', (done) =>{
         let loginData = {
