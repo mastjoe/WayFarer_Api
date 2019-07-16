@@ -21,11 +21,11 @@ let usersSql = `CREATE TABLE IF NOT EXISTS users (
 
 pool.query(usersSql)
 .then(r => {
-    console.log(r);
+    console.log('users table created');
     pool.end();
 })
 .catch(e => {
-    console.log(e);
+    console.log('users table not created');
     pool.end();
 });
 
@@ -41,11 +41,11 @@ let sqlBuses = `CREATE TABLE IF NOT EXISTS buses (
 
 pool.query(sqlBuses)
 .then(r => {
-    console.log(r);
+    console.log('buses table created');
     pool.end();
 })
 .catch(e =>{ 
-    console.log(e);
+    console.log('buses table not created');
     pool.end();
 });
 
@@ -63,11 +63,11 @@ CREATE TABLE IF NOT EXISTS trips (
 
 pool.query(tripsSql)
 .then(r => {
-    console.log(r);
+    console.log('trips table created');
     pool.end();
 })
 .catch(e => {
-    console.log(e);
+    console.log('trips table not created');
     pool.end();
 });
 
@@ -81,10 +81,10 @@ let sqlBooking = `CREATE TABLE IF NOT EXISTS bookings (
 
 pool.query(sqlBooking)
 .then(r => {
-    console.log(r);
+    console.log('booking table created');
     pool.end();
 })
 .catch(e =>{
-     console.log(e);
+     console.log('bookings table not created');
      pool.end();
 });

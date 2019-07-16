@@ -55,7 +55,18 @@ function () {
               _user["default"].createUser(req, res).then(function (r) {
                 res.status(201).json({
                   status: 'success',
-                  data: r.rows[0]
+                  data: {
+                    first_name: r.rows[0].first_name,
+                    last_name: r.rows[0].last_name,
+                    email: r.rows[0].email,
+                    password: r.rows[0].password,
+                    created: r.rows[0].created_at,
+                    token: jwt.sign({
+                      user: r.rows[0]
+                    }, process.env.SECRET_KEY, {
+                      expiresIn: '2h'
+                    })
+                  }
                 });
               })["catch"](function (e) {
                 return _errorHandlers["default"].serverError(req, res, 'error on creating user');
