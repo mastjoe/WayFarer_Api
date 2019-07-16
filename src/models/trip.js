@@ -24,4 +24,9 @@ export default class Trip {
         let sql = `DELETE FROM ${table} WHERE id='${table}'`;
         return pool.query(sql);
     }
+
+    static cancelTrip(id) {
+        let sql = `UPDATE ${table} SET  status='cancelled' WHERE id='${id}'`;
+        return pool.query(sql);
+    }
 }
