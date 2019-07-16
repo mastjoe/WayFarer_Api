@@ -71,11 +71,12 @@ pool.query(tripsSql)
 });
 
 let sqlBooking = `CREATE TABLE IF NOT EXISTS bookings (
-    id INTEGER NOT NULL,
+    booking_id BIGSERIAL NOT NULL,
     trip_id INTEGER NOT NULL REFERENCES trips(id),
     user_id INTEGER NOT NULL REFERENCES users(id),
+    seat_number INTEGER NOT NULL,
     created_on DATE,
-    PRIMARY KEY (trip_id,user_id));`;
+    PRIMARY KEY (booking_id, trip_id,user_id));`;
 
 pool.query(sqlBooking)
 .then(r => {

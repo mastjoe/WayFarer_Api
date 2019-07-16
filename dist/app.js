@@ -26,6 +26,8 @@ var _trips = _interopRequireDefault(require("./routes/trips"));
 
 var _bus = _interopRequireDefault(require("./routes/bus"));
 
+var _booking = _interopRequireDefault(require("./routes/booking"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var app = (0, _express["default"])();
@@ -47,6 +49,7 @@ app.use('/api/v1/auth/signin', _signin["default"]);
 app.use('/api/v1/trips', _auth["default"].verifyToken, _trips["default"]);
 app.use('/api/v1/bus', _auth["default"].verifyToken, _user["default"].adminCheck, _bus["default"]);
 app.use('/api/v1/users', _user2["default"]);
+app.use('/api/v1/bookings', _auth["default"].verifyToken, _booking["default"]);
 var swaggerDefinition = {
   info: {
     title: 'REST API for WayFarer App',
