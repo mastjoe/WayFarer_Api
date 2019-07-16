@@ -11,7 +11,7 @@ var pool = new _pg.Pool();
 var result = _dotenv["default"].config();
 
 var dbSql = "CREATE DATABASE test";
-var usersSql = "CREATE TABLE IF NOT EXISTS users (\n    id BIGSERIAL PRIMARY KEY NOT NULL,\n    email VARCHAR(100) UNIQUE NOT NULL,\n    first_name VARCHAR(100) NOT NULL,\n    last_name VARCHAR(100) NOT NULL,\n    password VARCHAR(200) NOT NULL,\n    is_admin BOOLEAN DEFAULT false,\n    last_login TIMESTAMP,\n    created_at TIMESTAMP\n);";
+var usersSql = "CREATE TABLE IF NOT EXISTS users (\n    id BIGSERIAL PRIMARY KEY NOT NULL,\n    email VARCHAR(100) UNIQUE NOT NULL,\n    first_name VARCHAR(100) NOT NULL,\n    last_name VARCHAR(100) NOT NULL,\n    password VARCHAR(200) NOT NULL,\n    is_admin BOOLEAN DEFAULT false,\n    last_login TIMESTAMP,\n    token VARCHAR,\n    created_at TIMESTAMP\n);";
 pool.query(usersSql).then(function (r) {
   console.log(r);
   pool.end();
