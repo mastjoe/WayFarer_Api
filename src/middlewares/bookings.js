@@ -1,6 +1,8 @@
 import Bus from '../models/bus';
 import Trip from '../models/trip';
+import Booking from '../models/booking';
 import Error from '../helpers/errorHandlers';
+import jwt from 'jsonwebtoken';
 
 export default class BookingMiddleware {
     static seatReg(req, res, next) {
@@ -27,5 +29,22 @@ export default class BookingMiddleware {
             }
         })
         .catch(e => Error.serverError(req, res))
+    }
+
+    static bookingOwner(req, res, next) {
+        let {user} = jwt.verify(req.token,process.env.SECRET_KEY);
+        let userId = user.id;
+        let bookingId = req.params.id;
+
+        Booking.select(bookingId)
+        .then(r => {
+            if (userId == r.rows[0].user_id){
+                return next();
+            } else {
+                Error.serverError(req, res, 'sorry user dont own booking');
+            }
+        })
+        .catch(e => Error.serverError(req, res,'could not delete booking', 400));
+        
     }
 }

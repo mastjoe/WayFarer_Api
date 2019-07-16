@@ -40,7 +40,7 @@ export default class BookingController {
 
     static deleteBooking(req, res) {
         Booking.delete(req, res)
-        .then(r => res.send('deleted'))
-        .catch(e => res.send('not deleted'+e));
+        .then(r => Success.successMessageReport(req, res, 'booking successfully deleted'))
+        .catch(e => Error.serverError(req, res));
     }
 }

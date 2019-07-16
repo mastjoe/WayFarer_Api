@@ -9,7 +9,11 @@ var _bus = _interopRequireDefault(require("../models/bus"));
 
 var _trip = _interopRequireDefault(require("../models/trip"));
 
+var _booking = _interopRequireDefault(require("../models/booking"));
+
 var _errorHandlers = _interopRequireDefault(require("../helpers/errorHandlers"));
+
+var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -52,6 +56,25 @@ function () {
         }
       })["catch"](function (e) {
         return _errorHandlers["default"].serverError(req, res);
+      });
+    }
+  }, {
+    key: "bookingOwner",
+    value: function bookingOwner(req, res, next) {
+      var _jwt$verify = _jsonwebtoken["default"].verify(req.token, process.env.SECRET_KEY),
+          user = _jwt$verify.user;
+
+      var userId = user.id;
+      var bookingId = req.params.id;
+
+      _booking["default"].select(bookingId).then(function (r) {
+        if (userId == r.rows[0].user_id) {
+          return next();
+        } else {
+          _errorHandlers["default"].serverError(req, res, 'sorry user dont own booking');
+        }
+      })["catch"](function (e) {
+        return _errorHandlers["default"].serverError(req, res, 'could not delete booking', 400);
       });
     }
   }]);
