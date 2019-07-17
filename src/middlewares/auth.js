@@ -2,14 +2,17 @@ import jwt from 'jsonwebtoken';
 
 export default class Auth{
     static verifyToken(req, res, next) {
-        const bearerHeader = req.headers.authorization || req.headers.token ;
-        if (typeof bearerHeader !== 'undefined') {
-            if (req.headers.authorization) {
-                const bearerToken = bearerHeader.split(' ')[1];
-                req.token = bearerToken;
-            } else {
-                req.token = req.headers.token;
-            }
+        // const bearerHeader = req.headers.authorization || req.headers.token ;
+        const bearerHeader =  req.headers.token;
+        // if (typeof bearerHeader !== 'undefined') {
+        if (bearerHeader != '') {
+            // if (req.headers.authorization) {
+            //     const bearerToken = bearerHeader.split(' ')[1];
+            //     req.token = bearerToken;
+            // } else {
+            //     req.token = req.headers.token;
+            // }
+            req.token = bearerHeader;
             return Auth.validateToken(req, res, next);
         } else {
             res.status(403).json({
