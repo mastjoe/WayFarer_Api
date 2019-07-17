@@ -11,6 +11,8 @@ var _errorHandlers = _interopRequireDefault(require("../helpers/errorHandlers"))
 
 var _user = _interopRequireDefault(require("../models/user"));
 
+var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61,7 +63,7 @@ function () {
                     email: r.rows[0].email,
                     password: r.rows[0].password,
                     created: r.rows[0].created_at,
-                    token: jwt.sign({
+                    token: _jsonwebtoken["default"].sign({
                       user: r.rows[0]
                     }, process.env.SECRET_KEY, {
                       expiresIn: '2h'

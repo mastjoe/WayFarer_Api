@@ -1,6 +1,7 @@
 import Joi from '@hapi/joi';
 import Error from '../helpers/errorHandlers';
 import User from '../models/user';
+import jwt from 'jsonwebtoken';
 
 export default class SignupController {
     static index(req, res) {
