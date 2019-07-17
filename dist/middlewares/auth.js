@@ -25,17 +25,11 @@ function () {
   _createClass(Auth, null, [{
     key: "verifyToken",
     value: function verifyToken(req, res, next) {
-      // const bearerHeader = req.headers.authorization || req.headers.token ;
-      var bearerHeader = req.headers.token; // if (typeof bearerHeader !== 'undefined') {
+      var bearerHeader = req.headers.authorization || req.body.token;
 
-      if (bearerHeader != '') {
-        // if (req.headers.authorization) {
-        //     const bearerToken = bearerHeader.split(' ')[1];
-        //     req.token = bearerToken;
-        // } else {
-        //     req.token = req.headers.token;
-        // }
-        req.token = bearerHeader;
+      if (typeof bearerHeader !== 'undefined') {
+        var bearerToken = bearerHeader.split(' ')[1];
+        req.token = bearerToken;
         return Auth.validateToken(req, res, next);
       } else {
         res.status(403).json({
