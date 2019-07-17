@@ -28,8 +28,13 @@ function () {
       var bearerHeader = req.headers.authorization || req.headers.token;
 
       if (typeof bearerHeader !== 'undefined') {
-        var bearerToken = bearerHeader.split(' ')[1];
-        req.token = bearerToken;
+        if (req.headers.authorization) {
+          var bearerToken = bearerHeader.split(' ')[1];
+          req.token = bearerToken;
+        } else {
+          req.token = req.headers.token;
+        }
+
         return Auth.validateToken(req, res, next);
       } else {
         res.status(403).json({
