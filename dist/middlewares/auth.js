@@ -25,7 +25,7 @@ function () {
   _createClass(Auth, null, [{
     key: "verifyToken",
     value: function verifyToken(req, res, next) {
-      var bearerHeader = req.headers.authorization || request.body.token;
+      var bearerHeader = req.headers.authorization || request.header.token;
 
       if (typeof bearerHeader !== 'undefined') {
         var bearerToken = bearerHeader.split(' ')[1];
