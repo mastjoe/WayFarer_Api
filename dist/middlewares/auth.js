@@ -32,7 +32,7 @@ function () {
         req.token = bearerToken;
         return Auth.validateToken(req, res, next);
       } else {
-        res.status(403).json({
+        res.status(401).json({
           status: 'error',
           error: 'unauthorized operation'
         });
@@ -43,7 +43,7 @@ function () {
     value: function validateToken(req, res, next) {
       _jsonwebtoken["default"].verify(req.token, process.env.SECRET_KEY, function (err, decoded) {
         if (err) {
-          res.status(403).json({
+          res.status(401).json({
             status: 'error',
             error: 'Unauthorized token'
           });

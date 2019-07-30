@@ -33,7 +33,21 @@ function () {
         if (r.rowCount > 0) {
           return next();
         } else {
-          _errorHandlers["default"].notFoundError(req, res, "No bus has id ".concat(req.body.bus_id));
+          return _errorHandlers["default"].notFoundError(req, res, "No bus has id ".concat(req.body.bus_id));
+        }
+      })["catch"](function (e) {
+        return _errorHandlers["default"].serverError(req, res);
+      });
+    } // check if bus is embarking on another trip...
+
+  }, {
+    key: "checkTripBusUsage",
+    value: function checkTripBusUsage(req, res, next) {
+      _bus["default"].busHasPendingTrip(req, res).then(function (r) {
+        if (r.rowCount > 0) {
+          _errorHandlers["default"].validationError(req, res, 'bus is used for another trip');
+        } else {
+          return next();
         }
       })["catch"](function (e) {
         return _errorHandlers["default"].serverError(req, res);

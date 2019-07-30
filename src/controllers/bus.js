@@ -26,7 +26,7 @@ export default class BusController {
          } else {
              Bus.addBus(req, res)
              .then(r => Success.successReport(req, res, r.rows[0]))
-             .catch(e => Error.serverError(req, res));
+             .catch(e => Error.serverError(req, res, e));
          }
        });
     }
@@ -41,7 +41,7 @@ export default class BusController {
     // find specific bus...
     static findBus(req, res) {
          Bus.select(req.params.id)
-         .then(r => Success.successReport(req, res, r.rows[0]))
+         .then(r => Success.okSuccessReport(req, res, r.rows[0]))
          .catch(e => Error.serverError(req, res));
     }
 }

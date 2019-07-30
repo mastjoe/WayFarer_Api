@@ -33,7 +33,7 @@ export default class BookingController {
             } else {
                 Booking.create(req, res)
                 .then(r => { Success.successReport(req, res, r.rows[0]) })
-                .catch(e => Error.serverError(req, res, 'error in booking ticket'));
+                .catch(e => Error.serverError(req, res, e));
             }
        });
     }

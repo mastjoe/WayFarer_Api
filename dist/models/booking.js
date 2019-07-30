@@ -19,8 +19,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 var pool = new _pg.Pool();
 var table = 'bookings';
-var table1 = 'trips';
-var table2 = 'users';
+var tripsTable = 'trips';
+var usersTable = 'users';
+var busesTable = 'buses';
 
 var Bookings =
 /*#__PURE__*/
@@ -32,15 +33,13 @@ function () {
   _createClass(Bookings, null, [{
     key: "find",
     value: function find(userId) {
-      var sql = "SELECT ".concat(table, ".booking_id, ").concat(table, ".seat_number, ").concat(table, ".user_id, ").concat(table, ".trip_id, ").concat(table2, ".first_name, ").concat(table2, ".last_name, ").concat(table2, ".email FROM ").concat(table2, " JOIN ").concat(table, " ON ").concat(table2, ".id = ").concat(table, ".user_id WHERE user_id=").concat(userId);
+      var sql = "SELECT ".concat(table, ".booking_id, ").concat(table, ".seat_number, ").concat(table, ".user_id, ").concat(table, ".trip_id, ").concat(usersTable, ".first_name, ").concat(usersTable, ".last_name, ").concat(usersTable, ".email FROM ").concat(usersTable, " JOIN ").concat(table, " ON ").concat(usersTable, ".id = ").concat(table, ".user_id WHERE user_id=").concat(userId);
       return pool.query(sql);
     } // SELECT * FROM bookings Inner JOIN trips ON bookings.trip_id = trips.id WHERE trip_id = $1
 
   }, {
     key: "findAll",
     value: function findAll(req, res) {
-      // let sql = `SELECT ${table}.booking_id, ${table}.seat_number, ${table}.user_id, ${table}.trip_id, ${table2}.first_name, ${table2}.last_name, ${table2}.email FROM ${table2} JOIN ${table} ON ${table2}.id = ${table}.user_id`;
-      // return pool.query(sql);
       var sql = "SELECT bookings.booking_id, bookings.seat_number, bookings.user_id, bookings.trip_id, users.first_name, users.last_name, users.email FROM users JOIN bookings ON users.id = bookings.user_id";
       return pool.query(sql);
     }
@@ -69,6 +68,12 @@ function () {
     key: "select",
     value: function select(bookingId) {
       var sql = "SELECT * FROM ".concat(table, " WHERE booking_id='").concat(bookingId, "'");
+      return pool.query(sql);
+    }
+  }, {
+    key: "checkTripSeat",
+    value: function checkTripSeat(req, res) {
+      var sql = "SELECT * FROM ".concat(table, " WHERE trip_id='").concat(req.body.trip_id, "' AND seat_number='").concat(req.body.seat_number, "'");
       return pool.query(sql);
     }
   }]);

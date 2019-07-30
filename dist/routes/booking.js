@@ -11,6 +11,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var router = _express["default"].Router();
 
 router.get('/', _booking["default"].findAllBookings);
-router.post('/', _booking["default"].book);
+router.post('/', _bookings["default"].checkTripBooking, _booking["default"].book);
 router["delete"]('/:id', _bookings["default"].bookingOwner, _booking["default"].deleteBooking);
 module.exports = router;

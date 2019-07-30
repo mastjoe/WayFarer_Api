@@ -13,8 +13,8 @@ let user = {
 };
 
 let userSql = `INSERT INTO users
- (first_name, last_name, email, is_admin, password, created_at) 
- VALUES ('admin', 'admin', 'admin@email.com', 'true','password', NOW())`;
+ (first_name, last_name, email, is_admin, password, created_on, updated_on) 
+ VALUES ('admin', 'admin', 'admin@email.com', 'true','password', NOW(), NOW())`;
 
 pool.query(userSql)
 .then(r => {

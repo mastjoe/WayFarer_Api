@@ -9,7 +9,20 @@ export default class TripMiddleware {
             if (r.rowCount > 0) {
                 return next();
             } else {
-                Error.notFoundError(req, res, `No bus has id ${req.body.bus_id}`);
+               return Error.notFoundError(req, res, `No bus has id ${req.body.bus_id}`);
+            }
+        })
+        .catch(e => Error.serverError(req, res));
+    }
+
+    // check if bus is embarking on another trip...
+    static checkTripBusUsage (req, res, next) {
+        Bus.busHasPendingTrip(req, res)
+        .then(r => {
+            if (r.rowCount > 0) {
+                Error.validationError(req, res, 'bus is used for another trip');
+            } else {
+                return next();
             }
         })
         .catch(e => Error.serverError(req, res));
@@ -26,4 +39,5 @@ export default class TripMiddleware {
         })
         .catch(e => Error.serverError(req, res));
     }
+
 }

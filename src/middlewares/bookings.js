@@ -16,7 +16,8 @@ export default class BookingMiddleware {
         }
     }
 
-    static tripReg(req, res, next) {
+    // check if trip id is valid...
+    static checkTripId(req, res, next) {
         Trip.find(req.body.trip_id)
         .then(r => {
             if (r.rowCount > 0) {
@@ -24,11 +25,24 @@ export default class BookingMiddleware {
             } else {
                 res.status(400).json({
                     status: 'error',
-                    error: 'trip id is invalid'
+                    error: `trip id of ${req.body.trip_id} is invalid`
                 });
             }
         })
         .catch(e => Error.serverError(req, res))
+    }
+
+    // check if seat is available against trip id...
+    static checkTripBooking (req, res, next) {
+        Booking.checkTripSeat(req, res)
+        .then(r => {
+           if (r.rowCount == 0) {
+                return BookingMiddleware.checkTripId(req, res, next);
+           } else {
+               Error.validationError(req, res, `seat number ${req.body.seat_number} is already picked`);
+           }
+        })
+        .catch(e => Error.serverError(req, res));
     }
 
     static bookingOwner(req, res, next) {
@@ -41,10 +55,10 @@ export default class BookingMiddleware {
             if (userId == r.rows[0].user_id){
                 return next();
             } else {
-                Error.serverError(req, res, 'sorry user dont own booking');
+                Error.serverError(req, res, 'sorry user don\'t own booking');
             }
         })
         .catch(e => Error.serverError(req, res,'could not delete booking', 400));
-        
     }
+
 }

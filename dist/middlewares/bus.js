@@ -36,6 +36,20 @@ function () {
       })["catch"](function (e) {
         return _errorHandlers["default"].serverError(req, res);
       });
+    } // check if bus already exist with plate number...
+
+  }, {
+    key: "plateNumberExist",
+    value: function plateNumberExist(req, res, next) {
+      _bus["default"].findPlateNumber(req.body.number_plate).then(function (r) {
+        if (r.rowCount > 0) {
+          _errorHandlers["default"].validationError(req, res, "number plate ".concat(r.rows[0].number_plate, " is already taken"));
+        } else {
+          return next();
+        }
+      })["catch"](function (e) {
+        return _errorHandlers["default"].serverError(req, res);
+      });
     }
   }]);
 

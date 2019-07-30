@@ -8,7 +8,7 @@ export default class Auth{
             req.token = bearerToken;
             return Auth.validateToken(req, res, next);
         } else {
-            res.status(403).json({
+            res.status(401).json({
                 status:'error',
                 error: 'unauthorized operation'
             });
@@ -18,7 +18,7 @@ export default class Auth{
     static validateToken(req, res, next) {
         jwt.verify(req.token, process.env.SECRET_KEY, (err, decoded) => {
             if (err) {
-                res.status(403).json({
+                res.status(401).json({
                     status: 'error',
                     error: 'Unauthorized token'
                 });
