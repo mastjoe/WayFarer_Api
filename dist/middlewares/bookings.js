@@ -41,18 +41,33 @@ function () {
           error: 'seat number is required'
         });
       }
-    }
+    } // check if trip id is valid...
+
   }, {
-    key: "tripReg",
-    value: function tripReg(req, res, next) {
+    key: "checkTripId",
+    value: function checkTripId(req, res, next) {
       _trip["default"].find(req.body.trip_id).then(function (r) {
         if (r.rowCount > 0) {
           return next();
         } else {
           res.status(400).json({
             status: 'error',
-            error: 'trip id is invalid'
+            error: "trip id of ".concat(req.body.trip_id, " is invalid")
           });
+        }
+      })["catch"](function (e) {
+        return _errorHandlers["default"].serverError(req, res);
+      });
+    } // check if seat is available against trip id...
+
+  }, {
+    key: "checkTripBooking",
+    value: function checkTripBooking(req, res, next) {
+      _booking["default"].checkTripSeat(req, res).then(function (r) {
+        if (r.rowCount == 0) {
+          return BookingMiddleware.checkTripId(req, res, next);
+        } else {
+          _errorHandlers["default"].validationError(req, res, "seat number ".concat(req.body.seat_number, " is already picked"));
         }
       })["catch"](function (e) {
         return _errorHandlers["default"].serverError(req, res);
@@ -71,7 +86,7 @@ function () {
         if (userId == r.rows[0].user_id) {
           return next();
         } else {
-          _errorHandlers["default"].serverError(req, res, 'sorry user dont own booking');
+          _errorHandlers["default"].serverError(req, res, 'sorry user don\'t own booking');
         }
       })["catch"](function (e) {
         return _errorHandlers["default"].serverError(req, res, 'could not delete booking', 400);

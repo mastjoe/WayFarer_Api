@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', TripController.allTrips);
 router.get('/:id', TripMiddleware.tripExist, TripController.findTrip);
-router.post('/', TripMiddleware.tripBusExist, UserMiddleware.adminCheck, TripController.createTrip);
+router.post('/', TripMiddleware.tripBusExist, TripMiddleware.checkTripBusUsage, UserMiddleware.adminCheck, TripController.createTrip);
 router.patch('/:id', UserMiddleware.adminCheck, TripController.cancelTrip);
 
 

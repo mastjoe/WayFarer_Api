@@ -14,6 +14,6 @@ var router = _express["default"].Router();
 
 router.get('/', _trip["default"].allTrips);
 router.get('/:id', _trip2["default"].tripExist, _trip["default"].findTrip);
-router.post('/', _trip2["default"].tripBusExist, _user["default"].adminCheck, _trip["default"].createTrip);
+router.post('/', _trip2["default"].tripBusExist, _trip2["default"].checkTripBusUsage, _user["default"].adminCheck, _trip["default"].createTrip);
 router.patch('/:id', _user["default"].adminCheck, _trip["default"].cancelTrip);
 module.exports = router;

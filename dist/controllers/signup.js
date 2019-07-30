@@ -71,7 +71,7 @@ function () {
                   }
                 });
               })["catch"](function (e) {
-                return _errorHandlers["default"].serverError(req, res, 'error on creating user');
+                return _errorHandlers["default"].serverError(req, res, e);
               });
             }
           })["catch"](function (e) {

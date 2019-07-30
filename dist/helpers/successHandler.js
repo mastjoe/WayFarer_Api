@@ -15,5 +15,11 @@ module.exports = {
         message: msg
       }
     });
+  },
+  okSuccessReport: function okSuccessReport(req, res, msg) {
+    res.status(200).json({
+      status: 'success',
+      data: msg
+    });
   }
 };

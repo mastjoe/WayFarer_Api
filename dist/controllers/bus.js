@@ -57,7 +57,7 @@ function () {
           _bus["default"].addBus(req, res).then(function (r) {
             return _successHandler["default"].successReport(req, res, r.rows[0]);
           })["catch"](function (e) {
-            return _errorHandlers["default"].serverError(req, res);
+            return _errorHandlers["default"].serverError(req, res, e);
           });
         }
       });
@@ -77,7 +77,7 @@ function () {
     key: "findBus",
     value: function findBus(req, res) {
       _bus["default"].select(req.params.id).then(function (r) {
-        return _successHandler["default"].successReport(req, res, r.rows[0]);
+        return _successHandler["default"].okSuccessReport(req, res, r.rows[0]);
       })["catch"](function (e) {
         return _errorHandlers["default"].serverError(req, res);
       });

@@ -68,7 +68,7 @@ function () {
           _booking["default"].create(req, res).then(function (r) {
             _successHandler["default"].successReport(req, res, r.rows[0]);
           })["catch"](function (e) {
-            return _errorHandlers["default"].serverError(req, res, 'error in booking ticket');
+            return _errorHandlers["default"].serverError(req, res, e);
           });
         }
       });

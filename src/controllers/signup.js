@@ -41,7 +41,7 @@ export default class SignupController {
                     }
                   });
                 })
-                .catch(e => Error.serverError(req, res, 'error on creating user'));
+                .catch(e => Error.serverError(req, res, e));
               }
             })
             .catch(e => Error.serverError(req, res));

@@ -17,7 +17,7 @@ var user = {
   is_admin: true,
   password: 'password'
 };
-var userSql = "INSERT INTO users\n (first_name, last_name, email, is_admin, password, created_at) \n VALUES ('admin', 'admin', 'admin@email.com', 'true','password', NOW())";
+var userSql = "INSERT INTO users\n (first_name, last_name, email, is_admin, password, created_on, updated_on) \n VALUES ('admin', 'admin', 'admin@email.com', 'true','password', NOW(), NOW())";
 pool.query(userSql).then(function (r) {
   console.log('admin seeded');
   pool.end();

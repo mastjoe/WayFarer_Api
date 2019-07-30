@@ -15,11 +15,11 @@ export default class User {
         return pool.query(checkSql);
     }
 
-    static createUser(req, res) {
-        let sql = `INSERT INTO ${table} (first_name, last_name, email, password, created_at) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
-        let values = [req.body.first_name, req.body.last_name, req.body.email, req.body.password, new Date()];
-
-        return pool.query(sql,values);
+    static async createUser(req, res) {
+        let now = new Date();
+        let sql = `INSERT INTO ${table} (first_name, last_name, email, password, created_on, updated_on) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
+        let values = [req.body.first_name, req.body.last_name, req.body.email, req.body.password, now, now];
+        return await pool.query(sql,values);
     }
 
     static userExist(req, res) {

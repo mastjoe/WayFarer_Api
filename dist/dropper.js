@@ -18,3 +18,10 @@ pool.query(dropSql).then(function (r) {
   console.log('tables not dropped');
   pool.end();
 });
+var typeSql = "DROP TYPE s_type";
+pool.query(typeSql).then(function (r) {
+  console.log('status type dropped');
+})["catch"](function (e) {
+  console.log('status type not dropped', e);
+});
+pool.end();
